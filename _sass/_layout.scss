@@ -464,3 +464,79 @@ img {
 .cms-editor-active .editor-link {
 	display: block;
 }
+
+/* =====================================================
+   全局链接样式（基于 CSS 变量）+ 导航独立样式
+   解决：所有页面链接蓝色背景，清除黑色背景
+   导航链接颜色独立，不随全局变化
+   作者备注：此部分为新增，确保 About/bookmarks/ 等页面链接正确显示
+   ===================================================== */
+
+:root {
+  /* 内容区链接默认颜色（蓝色） */
+  --link-color: #0066cc;
+  /* 内容区链接悬停颜色（深蓝色） */
+  --link-hover-color: #004499;
+  /* 内容区链接背景色（强制透明，清除黑色背景） */
+  --link-bg: transparent;
+  /* 内容区链接悬停背景色（保持透明） */
+  --link-hover-bg: transparent;
+}
+
+/* 全局基础链接样式（会被下面的导航独立样式覆盖部分） */
+a {
+  color: var(--link-color);
+  background-color: var(--link-bg);
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  background-color: var(--link-hover-bg);
+  text-decoration: underline;
+}
+
+/* 强制清除所有内容区链接的黑色背景（包括 About/bookmarks/ 页面） */
+.content a,
+article a,
+main a,
+section a {
+  background-color: transparent !important;
+  background: none !important;
+  color: var(--link-color);
+}
+
+.content a:hover,
+article a:hover,
+main a:hover,
+section a:hover {
+  background-color: transparent !important;
+  color: var(--link-hover-color);
+}
+
+/* 导航链接独立样式（覆盖全局变量，保持原有导航颜色） */
+.nav-item > a,
+.full-navigation .nav-item > a {
+  color: #666 !important;
+  background-color: transparent !important;
+}
+
+.nav-item > a:hover,
+.full-navigation .nav-item > a:hover {
+  color: #111 !important;
+}
+
+.nav-item.current > a {
+  color: #000 !important;
+  font-weight: 600;
+}
+
+/* 二级菜单链接样式（确保与主题一致） */
+.nav-item ul li a {
+  color: #586069 !important;
+}
+
+.nav-item ul li a:hover {
+  color: #0366d6 !important;
+}
